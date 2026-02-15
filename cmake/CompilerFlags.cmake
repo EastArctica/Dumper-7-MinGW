@@ -130,8 +130,10 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     # Debug info for debug build
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
     
-    # Enable intrinsics for xorstr
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2 -msse4.2")
+    # Enable intrinsics for xorstr (this appears to cause issues in wine)
+    if (NOT MINGW)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2 -msse4.2")
+    endif()
 
     # Allow permissive compilation for compatibility with MSVC-style code
     if(MINGW)
