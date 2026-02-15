@@ -29,6 +29,11 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # Dumper
     ${CMAKE_SOURCE_DIR}/Dumper
 
+    # Platform
+    ${CMAKE_SOURCE_DIR}/Dumper/Platform
+    ${CMAKE_SOURCE_DIR}/Dumper/Platform/Public
+    ${CMAKE_SOURCE_DIR}/Dumper/Platform/Private
+
     # Engine
     ${CMAKE_SOURCE_DIR}/Dumper/Engine
     ${CMAKE_SOURCE_DIR}/Dumper/Engine/Private
