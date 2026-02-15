@@ -53,6 +53,17 @@
                 "CMAKE_C_COMPILER": "cl.exe",
                 "CMAKE_CXX_COMPILER": "cl.exe"
             }
+        },
+        {
+            "name": "linux",
+            "displayName": "MinGW (Wine)",
+            "description": "Cross-compile Windows DLLs using MinGW on Linux",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "toolchainFile": "${sourceDir}/cmake/MinGW.cmake",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
+            }
         }
     ],
     "buildPresets": [
@@ -110,6 +121,20 @@
             "description": "Debug configuration using MSVC 2017",
             "displayName": "Debug",
             "configurePreset": "vs2017",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-Release",
+            "description": "Release configuration on Linux",
+            "displayName": "Release",
+            "configurePreset": "linux",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-Debug",
+            "description": "Debug configuration on Linux",
+            "displayName": "Debug",
+            "configurePreset": "linux",
             "configuration": "Debug"
         }
     ]

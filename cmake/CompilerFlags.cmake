@@ -132,6 +132,11 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
     
     # Enable intrinsics for xorstr
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mavx2 -msse4.2")
+
+    # Allow permissive compilation for compatibility with MSVC-style code
+    if(MINGW)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fpermissive")
+    endif()
 endif()
 
 # Print compiler flags
