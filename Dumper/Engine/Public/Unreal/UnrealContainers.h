@@ -214,7 +214,7 @@ namespace UC
 	class TArray
 	{
 	private:
-		template<typename ArrayElementType>
+		template<typename FriendArrayElementType>
 		friend class TAllocatedArray;
 
 		template<typename SparseArrayElementType>

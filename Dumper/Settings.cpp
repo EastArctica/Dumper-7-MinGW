@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <filesystem>
 #include <string>
+#include <algorithm>
+#include <sstream>
 
 #include "Unreal/UnrealObjects.h"
 #include "Unreal/ObjectArray.h"
@@ -66,14 +68,14 @@ void Settings::InitObjectPtrPropertySettings()
 	if (!ObjectPtrPropertyClass)
 	{
 		// The class doesn't exist, this so FieldPathProperty couldn't have been replaced with ObjectPtrProperty
-		std::cerr << std::format("\nDumper-7: bIsObjPtrInsteadOfFieldPathProperty = {}\n", Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty) << std::endl;
+		std::cerr << "\nDumper-7: bIsObjPtrInsteadOfFieldPathProperty = " << Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty << "\n" << std::endl;
 		Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty = false;
 		return;
 	}
 
 	Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty = ObjectPtrPropertyClass.GetDefaultObject().IsA(EClassCastFlags::FieldPathProperty);
 
-	std::cerr << std::format("\nDumper-7: bIsObjPtrInsteadOfFieldPathProperty = {}\n", Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty) << std::endl;
+	std::cerr << "\nDumper-7: bIsObjPtrInsteadOfFieldPathProperty = " << Settings::Internal::bIsObjPtrInsteadOfFieldPathProperty << "\n" << std::endl;
 }
 
 void Settings::InitArrayDimSizeSettings()
@@ -96,14 +98,14 @@ void Settings::InitArrayDimSizeSettings()
 			if (Property.GetArrayDim() >= 0x000F0001)
 			{
 				Settings::Internal::bUseUint8ArrayDim = true;
-				std::cerr << std::format("\nDumper-7: bUseUint8ArrayDim = {}\n", Settings::Internal::bUseUint8ArrayDim) << std::endl;
+				std::cerr << "\nDumper-7: bUseUint8ArrayDim = " << Settings::Internal::bUseUint8ArrayDim << "\n" << std::endl;
 				return;
 			}
 		}
 	}
 
 	Settings::Internal::bUseUint8ArrayDim = false;
-	std::cerr << std::format("\nDumper-7: bUseUint8ArrayDim = {}\n", Settings::Internal::bUseUint8ArrayDim) << std::endl;
+	std::cerr << "\nDumper-7: bUseUint8ArrayDim = " << Settings::Internal::bUseUint8ArrayDim << "\n" << std::endl;
 }
 
 void Settings::Config::Load()
@@ -131,5 +133,5 @@ void Settings::Config::Load()
 	GetPrivateProfileStringA("Settings", "SDKNamespaceName", "SDK", SDKNamespace, sizeof(SDKNamespace), ConfigPath);
 
 	SDKNamespaceName = SDKNamespace;
-	SleepTimeout = max(GetPrivateProfileIntA("Settings", "SleepTimeout", 0, ConfigPath), 0);
+	SleepTimeout = std::max<int>(GetPrivateProfileIntA("Settings", "SleepTimeout", 0, ConfigPath), 0);
 }

@@ -1,4 +1,6 @@
 #include <vector>
+#include <sstream>
+#include <iomanip>
 
 #include "OffsetFinder/OffsetFinder.h"
 #include "Unreal/ObjectArray.h"
@@ -193,7 +195,9 @@ int32_t FindNameOffsetForSomeClass(std::function<bool(int32_t Value)> IsPotentia
 			}
 
 			/* This shouldn't be the case, so log it as an info but continue, as the first offset is still likely the right one. */
-			std::cerr << std::format("Dumper-7: Another [UObject/FField]::Name offset (0x{:04X}) is also considered valid.\n", Info.Offset);
+			std::stringstream ss;
+			ss << "Dumper-7: Another [UObject/FField]::Name offset (0x" << std::hex << std::setw(4) << std::setfill('0') << Info.Offset << ") is also considered valid.\n";
+			std::cerr << ss.str();
 		}
 	}
 

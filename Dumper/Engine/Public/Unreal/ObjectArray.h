@@ -137,8 +137,8 @@ public:
 	UEProperty operator*() const;
 
 private:
-	inline void IterateToNextStruct();
-	inline void IterateToNextStructWithMembers();
+	void IterateToNextStruct();
+	void IterateToNextStructWithMembers();
 
 private:
 	inline bool CurrenStructHasMoreMembers() const
@@ -161,3 +161,21 @@ private:
 		return CurrentObject == ObjectEndIterator;
 	}
 };
+
+// Explicit template instantiation declarations for MinGW
+extern template UEObject ObjectArray::GetByIndex<UEObject>(int32 Index);
+extern template UEField ObjectArray::GetByIndex<UEField>(int32 Index);
+extern template UEEnum ObjectArray::GetByIndex<UEEnum>(int32 Index);
+extern template UEStruct ObjectArray::GetByIndex<UEStruct>(int32 Index);
+extern template UEClass ObjectArray::GetByIndex<UEClass>(int32 Index);
+extern template UEFunction ObjectArray::GetByIndex<UEFunction>(int32 Index);
+extern template UEProperty ObjectArray::GetByIndex<UEProperty>(int32 Index);
+extern template UEByteProperty ObjectArray::GetByIndex<UEByteProperty>(int32 Index);
+extern template UEBoolProperty ObjectArray::GetByIndex<UEBoolProperty>(int32 Index);
+extern template UEObjectProperty ObjectArray::GetByIndex<UEObjectProperty>(int32 Index);
+extern template UEClassProperty ObjectArray::GetByIndex<UEClassProperty>(int32 Index);
+extern template UEStructProperty ObjectArray::GetByIndex<UEStructProperty>(int32 Index);
+extern template UEArrayProperty ObjectArray::GetByIndex<UEArrayProperty>(int32 Index);
+extern template UEMapProperty ObjectArray::GetByIndex<UEMapProperty>(int32 Index);
+extern template UESetProperty ObjectArray::GetByIndex<UESetProperty>(int32 Index);
+extern template UEEnumProperty ObjectArray::GetByIndex<UEEnumProperty>(int32 Index);

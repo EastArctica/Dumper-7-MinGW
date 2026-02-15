@@ -466,7 +466,7 @@ int32 ObjectArray::MaxChunks()
 }
 
 template<typename UEType>
-static UEType ObjectArray::GetByIndex(int32 Index)
+UEType ObjectArray::GetByIndex(int32 Index)
 {
 	return UEType(ByIndex(GObjects + Off::FUObjectArray::GetObjectsOffset(), Index, SizeOfFUObjectItem, FUObjectItemInitialOffset, NumElementsPerChunk));
 }
@@ -695,21 +695,22 @@ void AllFieldIterator::IterateToNextStructWithMembers()
 	ObjectArray::FindObjectFastInOuter<UEMapProperty>("", "");
 	ObjectArray::FindObjectFastInOuter<UESetProperty>("", "");
 	ObjectArray::FindObjectFastInOuter<UEEnumProperty>("", "");
-
-	ObjectArray::GetByIndex<UEObject>(-1);
-	ObjectArray::GetByIndex<UEField>(-1);
-	ObjectArray::GetByIndex<UEEnum>(-1);
-	ObjectArray::GetByIndex<UEStruct>(-1);
-	ObjectArray::GetByIndex<UEClass>(-1);
-	ObjectArray::GetByIndex<UEFunction>(-1);
-	ObjectArray::GetByIndex<UEProperty>(-1);
-	ObjectArray::GetByIndex<UEByteProperty>(-1);
-	ObjectArray::GetByIndex<UEBoolProperty>(-1);
-	ObjectArray::GetByIndex<UEObjectProperty>(-1);
-	ObjectArray::GetByIndex<UEClassProperty>(-1);
-	ObjectArray::GetByIndex<UEStructProperty>(-1);
-	ObjectArray::GetByIndex<UEArrayProperty>(-1);
-	ObjectArray::GetByIndex<UEMapProperty>(-1);
-	ObjectArray::GetByIndex<UESetProperty>(-1);
-	ObjectArray::GetByIndex<UEEnumProperty>(-1);
 }
+
+// Explicit template instantiations for MinGW
+template UEObject ObjectArray::GetByIndex<UEObject>(int32 Index);
+template UEField ObjectArray::GetByIndex<UEField>(int32 Index);
+template UEEnum ObjectArray::GetByIndex<UEEnum>(int32 Index);
+template UEStruct ObjectArray::GetByIndex<UEStruct>(int32 Index);
+template UEClass ObjectArray::GetByIndex<UEClass>(int32 Index);
+template UEFunction ObjectArray::GetByIndex<UEFunction>(int32 Index);
+template UEProperty ObjectArray::GetByIndex<UEProperty>(int32 Index);
+template UEByteProperty ObjectArray::GetByIndex<UEByteProperty>(int32 Index);
+template UEBoolProperty ObjectArray::GetByIndex<UEBoolProperty>(int32 Index);
+template UEObjectProperty ObjectArray::GetByIndex<UEObjectProperty>(int32 Index);
+template UEClassProperty ObjectArray::GetByIndex<UEClassProperty>(int32 Index);
+template UEStructProperty ObjectArray::GetByIndex<UEStructProperty>(int32 Index);
+template UEArrayProperty ObjectArray::GetByIndex<UEArrayProperty>(int32 Index);
+template UEMapProperty ObjectArray::GetByIndex<UEMapProperty>(int32 Index);
+template UESetProperty ObjectArray::GetByIndex<UESetProperty>(int32 Index);
+template UEEnumProperty ObjectArray::GetByIndex<UEEnumProperty>(int32 Index);

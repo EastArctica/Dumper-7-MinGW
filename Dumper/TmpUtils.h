@@ -2,6 +2,7 @@
 #include <string>
 #include <algorithm>
 #include <cassert>
+#include <cstdint>
 
 namespace Utils
 {

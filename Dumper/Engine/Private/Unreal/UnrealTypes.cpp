@@ -97,7 +97,7 @@ void FName::Init_Windows(bool bForceGNames)
 
 		for (int i = 0; !AppendString && i < PossibleSigs.size(); i++)
 		{
-			AppendString = static_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], StringRef, 0x50, true, -1/* auto */));
+			AppendString = reinterpret_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], StringRef, 0x50, true, -1/* auto */));
 
 			if (AppendString)
 				MatchingSig = PossibleSigs[i];
@@ -124,7 +124,7 @@ void FName::Init_Windows(bool bForceGNames)
 			GetNameEntryFromName = reinterpret_cast<decltype(GetNameEntryFromName)>(Architecture_x86_64::Resolve32BitRelativeCall(ResultAsInt + 0x3));
 			AppendString = reinterpret_cast<decltype(AppendString)>(Architecture_x86_64::Resolve32BitRelativeCall(ResultAsInt + 0x10));
 
-			Off::InSDK::Name::GetNameEntryFromName = Platform::GetOffset(GetNameEntryFromName);
+			Off::InSDK::Name::GetNameEntryFromName = Platform::GetOffset(reinterpret_cast<const void*>(GetNameEntryFromName));
 			Off::InSDK::Name::bIsAppendStringInlinedAndUsed = true;
 
 			ToStr = [](const void* Name) -> std::wstring
@@ -147,9 +147,9 @@ void FName::Init_Windows(bool bForceGNames)
 	}
 
 	if (AppendString == nullptr)
-		AppendString = static_cast<decltype(AppendString)>(TryFindApendStringBackupStringRef_Windows());
+		AppendString = reinterpret_cast<decltype(AppendString)>(TryFindApendStringBackupStringRef_Windows());
 
-	Off::InSDK::Name::AppendNameToString = AppendString && !bForceGNames ? Platform::GetOffset(AppendString) : 0x0;
+	Off::InSDK::Name::AppendNameToString = AppendString && !bForceGNames ? Platform::GetOffset(reinterpret_cast<const void*>(AppendString)) : 0x0;
 
 	if (!AppendString || bForceGNames)
 	{
@@ -279,7 +279,7 @@ void* FName::TryFindApendStringBackupStringRef_Windows()
 
 		for (int i = 0; !AppendString && i < PossibleSigs.size(); i++)
 		{
-			AppendString = static_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], SigSearchStartAddress, 0x100, true, -1/* auto */));
+			AppendString = reinterpret_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], SigSearchStartAddress, 0x100, true, -1/* auto */));
 
 			if (AppendString)
 				return AppendString;
@@ -306,12 +306,12 @@ void FName::InitFallback()
 	int i = 0;
 	while (!AppendString && i < PossibleSigs.size())
 	{
-		AppendString = static_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], Conv_NameToStringAddress, 0x90, -1 /* auto */));
+		AppendString = reinterpret_cast<decltype(AppendString)>(Platform::FindPatternInRange(PossibleSigs[i], Conv_NameToStringAddress, 0x90, -1 /* auto */));
 
 		i++;
 	}
 
-	Off::InSDK::Name::AppendNameToString = AppendString ? Platform::GetOffset(AppendString) : 0x0;
+	Off::InSDK::Name::AppendNameToString = AppendString ? Platform::GetOffset(reinterpret_cast<const void*>(AppendString)) : 0x0;
 }
 
 

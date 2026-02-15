@@ -185,7 +185,7 @@ void DSGen::bakeEnum(EnumHolder& enumHolder)
 void DSGen::dump()
 {
 	if (directory.empty())
-		throw std::exception("Please initialize a directory first!");
+		throw std::runtime_error("Please initialize a directory first!");
 
 	constexpr auto version = 10202;
 
