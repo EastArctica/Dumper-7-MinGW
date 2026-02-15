@@ -3,7 +3,7 @@
 #include <array>
 #include <string>
 #include <iostream>
-#include <Windows.h>
+#include <windows.h>
 
 #include "Unreal/Enums.h"
 #include "OffsetFinder/Offsets.h"
